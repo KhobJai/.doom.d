@@ -66,7 +66,7 @@
  ;; If there is more than one, they won't work right.
 
  '(shell-pop-default-directory "/Users/$USER/git")
- '(shell-pop-shell-type (quote ("vterm" "*vterm*" (lambda nil (v-term shell-pop-term-shell)))))
+ '(shell-pop-shell-type (quote ("vterm" "*vterm*" (lambda nil (vterm shell-pop-term-shell)))))
  '(shell-pop-term-shell "/bin/zsh")
  '(shell-pop-universal-key "C-T")
  '(shell-pop-window-size 30)
