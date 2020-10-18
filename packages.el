@@ -54,7 +54,7 @@
 (package! golden-ratio)
 (package! vterm)                        ;
 (package! shell-pop)
-
+(package! find-file)
 ;; My Packages
 ;;
 (package! shortcuts
