@@ -78,3 +78,11 @@
 
 
 (use-package! shortcuts)
+
+;; Shortcuts Mappings
+(map! :ne "SPC j l" #'check-shortcuts-loaded)
+(map! :ne "SPC j t" #'+treemacs/toggle)
+(map! :ne "SPC j g" #'golden-ratio-mode)
+(map! :ne "SPC j e" #'open-custom-config)
+(map! :ne "SPC j p" #'shell-pop)
+

@@ -1,4 +1,6 @@
- ;;; shortcuts.el --- Shortcuts and other stuff I;ve added to Doom Emacs.
+ ;;; shortcuts.el -*- lexical-binding: t; -*-
+ ;;; Shortcuts and other stuff I;ve added to Doom Emacs.
+ ;;;
 
 ;;; Code:
 
@@ -10,8 +12,9 @@
 
 (defun open-custom-config
     ()
-  (interactive)
-  (find-file "~/.doom.d/packages/john-shortcuts/shortcuts.el"))
+  "Opens my main custom config file"
+ (interactive)
+ (find-file "~/.doom.d/packages/john-shortcuts/shortcuts.el"))
 
 
 
@@ -21,27 +24,27 @@
 (map! :ne "SPC <up>" #'evil-window-up)
 (map! :ne "SPC <down>" #'evil-window-down)
 
-;; (map! :ne "C-'" #'shell-pop)
 
-;;(require 'vterm)
-;;(require 'shell-pop)
 ;; SPC j mappings
-(map! :ne "SPC j l" #'check-shortcuts-loaded)
-(map! :ne "SPC j t" #'+treemacs/toggle)
-(map! :ne "SPC j g" #'golden-ratio-mode)
-(map! :ne "SPC j e" #'open-custom-config)
-(map! :ne "SPC j p" #'shell-pop)
+;; (map! :ne "SPC j l" #'check-shortcuts-loaded)
+;; (map! :ne "SPC j t" #'+treemacs/toggle)
+;; (map! :ne "SPC j g" #'golden-ratio-mode)
+;; (map! :ne "SPC j e" #'open-custom-config)
+;; (map! :ne "SPC j p" #'shell-pop)
 ;; Other mappings
 ;;
 (map! :ne "SPC f t" #'neotree-toggle)
 
-(map! :ne "SPC d" #'+workspace/close-window-or-workspace)
+(map! :nei "SPC d" #'+workspace/close-window-or-workspace)
 
-
+(map! :i "C-d"
+      (cmd!
+            (kill-line)
+            (forward-line)))
 ;;(check-shortcuts-loaded)
 
 (provide 'shortcuts)
 
-
+(eval-buffer)
 ;;; EOF
 
