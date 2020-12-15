@@ -8,8 +8,7 @@
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
-
-;; To install a package directly from a remote git repo, you must specify a
+ ; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
 ;(package! another-package
@@ -51,14 +50,23 @@
 
 
 ;; Melpa Packages
-(package! golden-ratio)
-(package! vterm)                        ;
+(package! vterm)
 (package! shell-pop)
 (package! find-file)
+
+;; Python IDE Packages
+(package! elpy)
+(package! flycheck)
+(package! flyspell)
+(package! py-autopep8)
+(package! better-defaults)                 ;; Set up some better Emacs defaults
+(package! elpy)                            ;; Emacs Lisp Python Environment
+(package! flycheck)                        ;; On the fly syntax checking
+(package! blacken)                         ;; Black formatting on save
+(package! ein)                             ;; Emacs IPython Notebook
+
 ;; My Packages
 ;;
 (package! shortcuts
 :recipe  (:local-repo "packages/john-shortcuts"))
 
-;; (package! shortcuts
-  ;; :local-repo "packages/john-shortcuts")

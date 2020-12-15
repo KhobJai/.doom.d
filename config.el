@@ -25,7 +25,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-material)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -54,17 +55,29 @@
 ;; they are implemented.
 ;;
 ;; Don't think we need to add any more to config.
-;;(use-package! golden-ratio)
+
+(use-package! golden-ratio
+  :after-call pre-command-hook
+  :config
+  (golden-ratio-mode +1)
+  ;; Using this hook for resizing windows is less precise than
+  ;; `doom-switch-window-hook'.
+  (remove-hook 'window-configuration-change-hook #'golden-ratio)
+  (add-hook 'doom-switch-window-hook #'golden-ratio))
+
 (use-package! shell-pop)
 
-;; Shell Pop Config
+(use-package! shortcuts)
+
 (use-package! vterm)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 
+;; Shell Pop Vars
  '(shell-pop-default-directory "/Users/$USER/git")
  '(shell-pop-shell-type (quote ("vterm" "*vterm*" (lambda nil (vterm shell-pop-term-shell)))))
  '(shell-pop-term-shell "/bin/zsh")
@@ -74,15 +87,93 @@
  '(shell-pop-window-position "bottom")
  '(shell-pop-autocd-to-working-dir t)
  '(shell-pop-restore-window-configuration t)
- '(shell-pop-cleanup-buffer-at-process-exit t))
+ '(shell-pop-cleanup-buffer-at-process-exit t)
+
+;; Golden Ratio Vars
+;;(setq golden-ratio-exclude-modes
+ ;;     '(
+  ;      ;; "calendar-mode"
+  ;;      org-agenda-mode
+   ;;     "help-mode"
+    ;;;    "helpful-mode"
+        ;; "rxt-help-mode"
+        ;; "treemacs-mode" ))
+;;(setq golden-ratio-exclude-buffer-names
+ ;;;     '("*Org tags*"
+   ;;     "*Org todo*"
+    ;;;    "*info*"
+      ;;  "*Messages*"))
+
+ ;; Share clipboard wit X11/System
+ '(x-select-enable-clipboard t))
 
 
-(use-package! shortcuts)
+;; States
+;;   :n  normal
+;;   :v  visual
+;;   :i  insert
+;;   :e  emacs
+;;   :o  operator
+;;   :m  motion
+;;   :r  replace
+;;   :g  global  (binds the key without evil `current-global-map')
 
-;; Shortcuts Mappings
+;; j (for John!) Shortcuts Mappings
 (map! :ne "SPC j l" #'check-shortcuts-loaded)
-(map! :ne "SPC j t" #'+treemacs/toggle)
+(map! :ne "SPC j t" #'shell-pop)
 (map! :ne "SPC j g" #'golden-ratio-mode)
 (map! :ne "SPC j e" #'open-custom-config)
-(map! :ne "SPC j p" #'shell-pop)
+;; (map! :ne "SPC j p" #'shell-pop)
 
+
+;; Navigation Shortcuts
+(map! :ne "SPC <right>" #'evil-window-right)
+(map! :ne "SPC <left>" #'evil-window-left)
+(map! :ne "SPC <up>" #'evil-window-up)
+(map! :ne "SPC <down>" #'evil-window-down)
+
+;; Spacemacs mappings
+(map! :ne "SPC f t" #'+treemacs/toggle)
+
+
+;; Number Mappings - They are free so will use?
+(map! :ne "SPC 1 n" #'tab-next)
+
+
+;; Hyper Mappings - Not as Lead Key
+(map! :g "H-b" #'previous-buffer)
+(map! :g "H-n" #'next-buffer)
+(map! :g "H-<left>" #'next-window)
+(map! :g "H-<right>" #'previous-window)
+(map! :ne "H-s" #'ace-swap-window)
+(map! :ne "H-/" #'evilnc-comment-operator)
+(map! :ne "H-d r" #'doom/reload)
+(map! :nei "H-y" #'evil-redo)
+;; (map! :g "H-R" #'doom/reload)
+;; (map! :g "e" :prefix "H" #'doom/escape)
+;;(evil-define-key 'insert 'global (kbd "e") (self-insert-command 1 "e"))
+
+;; (local-unset-key "e")
+
+
+;;(global-set-key (kbd "e") (lambda () (interactive) (self-insert-command 1 "e")))
+
+;; Python Config
+(elpy-enable)
+
+;;; Enable autopep8
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save); Enable Flycheck
+
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; Use IPython for REPL
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt"
+      python-shell-prompt-detect-failure-warning nil)
+(add-to-list 'python-shell-completion-native-disabled-interpreters
+             "jupyter")
+
+;;; config ends here
