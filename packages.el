@@ -53,9 +53,9 @@
 (package! vterm)
 (package! shell-pop)
 (package! find-file)
+(package! golden-ratio)
 
 ;; Python IDE Packages
-(package! elpy)
 (package! flycheck)
 (package! flyspell)
 (package! py-autopep8)
@@ -67,6 +67,8 @@
 
 ;; My Packages
 ;;
-(package! shortcuts
-:recipe  (:local-repo "packages/john-shortcuts"))
+(package! johntrol
+:recipe  (:local-repo "packages/johntrol"))
 
+(package! hyperspace
+:recipe  (:local-repo "packages/hyperspace"))
