@@ -49,21 +49,15 @@
 ;(unpin! t)
 
 
-;; Melpa Packages
+;; General Packages
+package! straight)
+;; Pakcages which do not relate to a spcific binding and ca be loaded first here.
 (package! vterm)
-(package! shell-pop)
-(package! find-file)
-(package! golden-ratio)
+(package! shell-pop) ;; Move to the Shop Config?
+(package! find-file) ;; Why is the here?
+(package! golden-ratio) ;;Move to Golden Ration Config?
 
-;; Python IDE Packages
-(package! flycheck)
-(package! flyspell)
-(package! py-autopep8)
-(package! better-defaults)                 ;; Set up some better Emacs defaults
-(package! elpy)                            ;; Emacs Lisp Python Environment
-(package! flycheck)                        ;; On the fly syntax checking
-(package! blacken)                         ;; Black formatting on save
-(package! ein)                             ;; Emacs IPython Notebook
+
 
 ;; My Packages
 ;;
