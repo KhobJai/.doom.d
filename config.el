@@ -65,18 +65,6 @@
   (remove-hook 'window-configuration-change-hook #'golden-ratio)
   (add-hook 'doom-switch-window-hook #'golden-ratio))
 
-(defun load-custom-packages
-()
-    (interactive)
-    (load "~/.doom.d/packages/johntrol/johntrol.el")
-    (load "~/.doom.d/packages/hyperspace/hyperspace.el")
-    )
-
-;; (use-package! johntrol
-  ;; :after-call config)
-
-;; (use-package! hyperspace
-  ;; :after-call :config)
 (require 'which-key)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -127,46 +115,38 @@
 ;;   :g  global  (binds the key without evil `current-global-map')
 
 ;; j (for John!) Shortcuts Mappings
-;; (map! :ne "SPC j l" #'check-shortcuts-loaded)
-;; (map! :ne "SPC j t" #'shell-pop)
-;; (map! :ne "SPC j g" #'golden-ratio-mode)
-;; (map! :ne "SPC j e" #'open-custom-config)
-;; ;; (map! :ne "SPC j p" #'shell-pop)
+(map! :ne "SPC j l" #'check-shortcuts-loaded)
+(map! :ne "SPC j t" #'shell-pop)
+(map! :ne "SPC j g" #'golden-ratio-mode)
+(map! :ne "SPC j p" #'shell-pop)
 
 
 ;; ;; ;; Navigation Shortcuts
-;; (map! :ne "SPC <right>" #'evil-window-right)
-;; (map! :ne "SPC <left>" #'evil-window-left)
-;; (map! :ne "SPC <up>" #'evil-window-up)
-;; (map! :ne "SPC <down>" #'evil-window-down)
+(map! :ne "SPC <right>" #'evil-window-right)
+(map! :ne "SPC <left>" #'evil-window-left)
+(map! :ne "SPC <up>" #'evil-window-up)
+(map! :ne "SPC <down>" #'evil-window-down)
 
 ;; ;; Spacemacs mappings
-;; (map! :ne "SPC f t" #'+treemacs/toggle)
+(map! :ne "SPC f t" #'+treemacs/toggle)
 (load-custom-packages)
 
 
 ;; Number Mappings - They are free so will use?
-;; (map! :ne "SPC 1 n" #'tab-next)
+(map! :ne "SPC 1 n" #'tab-next)
 
 
 ;; Hyper Mappings - Not as Lead Key
-;; (map! :g "H-b" #'previous-buffer)
-;; (map! :g "H-n" #'next-buffer)
-;; (map! :g "H-<left>" #'next-window)
-;; (map! :g "H-<right>" #'previous-window)
-;; (map! :ne "H-s" #'ace-swap-window)
-;; (map! :ne "H-/" #'evilnc-comment-operator)
-;; (map! :ne "H-d r" #'doom/reload)
-;; (map! :nei "H-y" #'evil-redo)
-;; (map! :g "H-R" #'doom/reload)
-;; (map! :g "e" :prefix "H" #'doom/escape)
-;;(evil-define-key 'insert 'global (kbd "e") (self-insert-command 1 "e"))
-
-;; (local-unset-key "e")
-
-
-;;(global-set-key (kbd "e") (lambda () (interactive) (self-insert-command 1 "e")))
-
+(map! :g "H-b" #'previous-buffer)
+(map! :g "H-n" #'next-buffer)
+(map! :g "H-<left>" #'next-window)
+(map! :g "H-<right>" #'previous-window)
+(map! :ne "H-s" #'ace-swap-window)
+(map! :ne "H-/" #'evilnc-comment-operator)
+(map! :ne "H-d r" #'doom/reload)
+(map! :nei "H-y" #'evil-redo)
+(map! :g "H-R" #'doom/reload)
+(map! :g "e" :prefix "H" #'doom/escape)
 
 ;; Python Config
 (require 'py-autopep8)
@@ -183,5 +163,44 @@
       python-shell-prompt-detect-failure-warning nil)
 (add-to-list 'python-shell-completion-native-disabled-interpreters
              "jupyter")
+
+
+(map! :ne "SPC j t" #'shell-pop)
+(map! :ne "SPC j g" #'golden-ratio-mode)
+(map! :ne "SPC j l" #'doom/toggle-line-numbers)
+(map! :ne "SPC j c" #'doom/copy-buffer-contents)
+(map! :ne "SPC j 1" #'treemacs)
+(map! :ne "SPC f t" #'treemacs)
+
+
+;; Navigation Shortcuts
+(map! :ne "SPC <right>" #'evil-window-right)
+(map! :ne "SPC <left>" #'evil-window-left)
+(map! :ne "SPC <up>" #'evil-window-up)
+(map! :ne "SPC <down>" #'evil-window-down)
+
+;; Spacemacs mappings
+(map! :ne "SPC f t" #'+treemacs/toggle)
+
+
+;; Number Mappings - They are free so will use?
+(map! :ne "SPC 1 n" #'tab-next)
+
+
+
+(require 'py-autopep8)
+(require 'elpy)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save); Enable Flycheck
+
+(when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; Use IPython for REPL
+(setq python-shell-interpreter "jupyter"
+            python-shell-interpreter-args "console --simple-prompt"
+	          python-shell-prompt-detect-failure-warning nil)
+(add-to-list 'python-shell-completion-native-disabled-interpreters
+	                  "jupyter")
 
 ;;; config ends here
